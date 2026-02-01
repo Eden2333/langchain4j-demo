@@ -1,6 +1,8 @@
 package com.mcd.langchain4jdemo.config;
 
 import com.mcd.langchain4jdemo.aiservice.ChatService;
+import dev.langchain4j.memory.ChatMemory;
+import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.ollama.OllamaChatModel;
 import dev.langchain4j.model.ollama.OllamaStreamingChatModel;
 import dev.langchain4j.service.AiServices;
@@ -42,6 +44,15 @@ public class LangChain4jConfig {
         return AiServices.builder(ChatService.class)
                 .chatModel(ollamaChatModel())
                 .streamingChatModel(streamingChatModel())
+                .chatMemory(chatMemory())
+                .build();
+    }
+
+    @Bean
+    public ChatMemory chatMemory(){
+        // 实现会话记忆
+        return MessageWindowChatMemory.builder()
+                .maxMessages(20)
                 .build();
     }
 }
