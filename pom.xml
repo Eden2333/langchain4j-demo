@@ -46,15 +46,8 @@
             <version>1.9.0</version>
         </dependency>
 
-        <!-- LangChain4j Reactor 支持 -->
-        <dependency>
-            <groupId>dev.langchain4j</groupId>
-            <artifactId>langchain4j-reactor</artifactId>
-            <version>1.9.0</version>
-        </dependency>
-
         <!-- LangChain4j Spring Boot Starter -->
-        <!-- 要求SpringBoot版本3.0+ -->
+        <!-- 要求SpringBoot版本3.0+ 暂不使用-->
         <!--        <dependency>-->
         <!--            <groupId>dev.langchain4j</groupId>-->
         <!--            <artifactId>langchain4j-spring-boot-starter</artifactId>-->
