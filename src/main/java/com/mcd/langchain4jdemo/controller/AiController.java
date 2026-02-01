@@ -23,8 +23,8 @@ public class AiController {
     }
 
     @GetMapping(value = "/chat/stream", produces = "text/html;charset=utf-8")
-    public Flux<String> chatStream(@RequestParam String message) {
-        return chatService.chatFlux(message);
+    public Flux<String> chatStream(@RequestParam String memoryId, @RequestParam String message) {
+        return chatService.chatFlux(memoryId, message);
     }
 
     @GetMapping("/translate")
