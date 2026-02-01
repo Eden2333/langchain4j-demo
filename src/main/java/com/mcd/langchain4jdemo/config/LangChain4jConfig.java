@@ -2,6 +2,7 @@ package com.mcd.langchain4jdemo.config;
 
 import com.mcd.langchain4jdemo.aiservice.ChatService;
 import dev.langchain4j.model.ollama.OllamaChatModel;
+import dev.langchain4j.model.ollama.OllamaStreamingChatModel;
 import dev.langchain4j.service.AiServices;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +18,7 @@ public class LangChain4jConfig {
     private String modelName;
 
     @Bean
-    public OllamaChatModel chatLanguageModel() {
+    public OllamaChatModel ollamaChatModel() {
         return OllamaChatModel.builder()
                 .baseUrl(baseUrl)
                 .modelName(modelName)
@@ -27,10 +28,20 @@ public class LangChain4jConfig {
     }
 
     @Bean
+    public OllamaStreamingChatModel streamingChatModel() {
+        return OllamaStreamingChatModel.builder()
+                .baseUrl(baseUrl)
+                .modelName(modelName)
+                .logRequests(true)
+                .logResponses(true)
+                .build();
+    }
+
+    @Bean
     public ChatService chatService() {
-        // 使用AiServices构建ChatService代理对象（本质上是一个model）
         return AiServices.builder(ChatService.class)
-                .chatModel(chatLanguageModel())
+                .chatModel(ollamaChatModel())
+                .streamingChatModel(streamingChatModel())
                 .build();
     }
 }

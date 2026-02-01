@@ -45,14 +45,40 @@
             <artifactId>langchain4j-ollama</artifactId>
             <version>1.9.0</version>
         </dependency>
-        
+
+        <!-- LangChain4j Reactor 支持 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-reactor</artifactId>
+            <version>1.9.0</version>
+        </dependency>
+
         <!-- LangChain4j Spring Boot Starter -->
-        <!-- starter 整合了langchain4j 和 langchain4j-ollama-->
-<!--        <dependency>-->
-<!--            <groupId>dev.langchain4j</groupId>-->
-<!--            <artifactId>langchain4j-ollama-spring-boot-starter</artifactId>-->
-<!--            <version>0.36.0</version>-->
-<!--        </dependency>-->
+        <!-- 要求SpringBoot版本3.0+ -->
+        <!--        <dependency>-->
+        <!--            <groupId>dev.langchain4j</groupId>-->
+        <!--            <artifactId>langchain4j-spring-boot-starter</artifactId>-->
+        <!--            <version>1.9.0-beta16</version>-->
+        <!--        </dependency>-->
+
+        <!-- LangChain4j ollama Spring Boot Starter -->
+        <!--        <dependency>-->
+        <!--            <groupId>dev.langchain4j</groupId>-->
+        <!--            <artifactId>langchain4j-ollama-spring-boot-starter</artifactId>-->
+        <!--            <version>1.9.0-beta16</version>-->
+        <!--        </dependency>-->
+
+        <!-- 流式调用依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+        <!-- 流式调用依赖 -->
+        <dependency>
+            <groupId>dev.langchain4j</groupId>
+            <artifactId>langchain4j-reactor</artifactId>
+            <version>1.9.0-beta16</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>

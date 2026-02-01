@@ -3,6 +3,7 @@ package com.mcd.langchain4jdemo.controller;
 import com.mcd.langchain4jdemo.aiservice.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 
 @RequiredArgsConstructor
 @RestController
@@ -21,8 +22,13 @@ public class AiController {
         return chatService.chat(message);
     }
 
-//    @PostMapping("/translate")
-//    public String translate(@RequestParam String text, @RequestParam String targetLanguage) {
-//        return chatService.translate(text, targetLanguage);
-//    }
+    @GetMapping(value = "/chat/stream", produces = "text/html;charset=utf-8")
+    public Flux<String> chatStream(@RequestParam String message) {
+        return chatService.chatFlux(message);
+    }
+
+    @GetMapping("/translate")
+    public String translate(@RequestParam String text, @RequestParam String targetLanguage) {
+        return chatService.translate(text, targetLanguage);
+    }
 }
