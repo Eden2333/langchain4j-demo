@@ -1,0 +1,9 @@
+server:
+  port: 8080
+
+langchain4j:
+  ollama:
+    chat-model:
+      base-url: http://localhost:11434
+      model-name: llama3.2:1b
+
