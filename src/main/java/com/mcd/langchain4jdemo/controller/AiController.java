@@ -1,6 +1,6 @@
 package com.mcd.langchain4jdemo.controller;
 
-import dev.langchain4j.model.chat.ChatModel;
+import com.mcd.langchain4jdemo.aiservice.ChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/ollama")
 public class AiController {
 
-    private final ChatModel model;
+    private final ChatService chatService;
 
     @PostMapping("/chat")
     public String chat(@RequestBody String message) {
-        return model.chat(message);
+        return chatService.chat(message);
     }
 
     @GetMapping("/chat")
     public String chatGet(@RequestParam String message) {
-        return model.chat(message);
+        return chatService.chat(message);
     }
 
 //    @PostMapping("/translate")

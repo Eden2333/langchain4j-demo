@@ -1,8 +1,8 @@
 package com.mcd.langchain4jdemo.config;
 
-
-import dev.langchain4j.model.chat.ChatModel;
+import com.mcd.langchain4jdemo.aiservice.ChatService;
 import dev.langchain4j.model.ollama.OllamaChatModel;
+import dev.langchain4j.service.AiServices;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ public class LangChain4jConfig {
     private String modelName;
 
     @Bean
-    public ChatModel chatLanguageModel() {
+    public OllamaChatModel chatLanguageModel() {
         return OllamaChatModel.builder()
                 .baseUrl(baseUrl)
                 .modelName(modelName)
@@ -25,11 +25,12 @@ public class LangChain4jConfig {
                 .logResponses(true)
                 .build();
     }
-//
-//    @Bean
-//    public ChatService chatService(ChatLanguageModel chatLanguageModel) {
-//        return AiServices.builder(ChatService.class)
-//                .chatLanguageModel(chatLanguageModel)
-//                .build();
-//    }
+
+    @Bean
+    public ChatService chatService() {
+        // 使用AiServices构建ChatService代理对象（本质上是一个model）
+        return AiServices.builder(ChatService.class)
+                .chatModel(chatLanguageModel())
+                .build();
+    }
 }
