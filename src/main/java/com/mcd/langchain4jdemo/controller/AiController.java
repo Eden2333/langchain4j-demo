@@ -12,15 +12,15 @@ public class AiController {
 
     private final ChatService chatService;
 
-    @PostMapping("/chat")
-    public String chat(@RequestBody String message) {
-        return chatService.chat(message);
-    }
-
-    @GetMapping("/chat")
-    public String chatGet(@RequestParam String message) {
-        return chatService.chat(message);
-    }
+//    @PostMapping("/chat")
+//    public String chat(@RequestBody String message) {
+//        return chatService.chat(message);
+//    }
+//
+//    @GetMapping("/chat")
+//    public String chatGet(@RequestParam String message) {
+//        return chatService.chat(message);
+//    }
 
     @GetMapping(value = "/chat/stream", produces = "text/html;charset=utf-8")
     public Flux<String> chatStream(@RequestParam String memoryId, @RequestParam String message) {

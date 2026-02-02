@@ -1,18 +1,23 @@
 package com.mcd.langchain4jdemo.config;
 
 import com.mcd.langchain4jdemo.aiservice.ChatService;
+import com.mcd.langchain4jdemo.store.RedisChatMemoryStore;
 import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.ChatMemoryProvider;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.ollama.OllamaChatModel;
 import dev.langchain4j.model.ollama.OllamaStreamingChatModel;
 import dev.langchain4j.service.AiServices;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@RequiredArgsConstructor
 public class LangChain4jConfig {
+
+    private final RedisChatMemoryStore redisChatMemoryStore;
 
     @Value("${langchain4j.ollama.chat-model.base-url:http://localhost:11434}")
     private String baseUrl;
@@ -60,15 +65,10 @@ public class LangChain4jConfig {
 
     @Bean
     public ChatMemoryProvider chatMemoryProvider() {
-        // 当AiServices找不到对应id的chatMemory时，会调用chatMemoryProvider的get方法创建新的chatMemory。
-        return new ChatMemoryProvider() {
-            @Override
-            public ChatMemory get(Object memoryId) {
-                return MessageWindowChatMemory.builder()
-                        .id(memoryId)
-                        .maxMessages(20)
-                        .build();
-            }
-        };
+        return memoryId -> MessageWindowChatMemory.builder()
+                .id(memoryId)
+                .maxMessages(20)
+                .chatMemoryStore(redisChatMemoryStore)
+                .build();
     }
 }
