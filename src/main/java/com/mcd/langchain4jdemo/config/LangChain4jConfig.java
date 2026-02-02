@@ -2,10 +2,10 @@ package com.mcd.langchain4jdemo.config;
 
 import com.mcd.langchain4jdemo.aiservice.ChatService;
 import com.mcd.langchain4jdemo.store.RedisChatMemoryStore;
+import com.mcd.langchain4jdemo.tools.ReservationTool;
 import dev.langchain4j.data.document.Document;
 import dev.langchain4j.data.document.loader.ClassPathDocumentLoader;
 import dev.langchain4j.data.segment.TextSegment;
-import dev.langchain4j.memory.ChatMemory;
 import dev.langchain4j.memory.chat.ChatMemoryProvider;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.ollama.OllamaChatModel;
@@ -28,6 +28,7 @@ import java.util.List;
 public class LangChain4jConfig {
 
     private final RedisChatMemoryStore redisChatMemoryStore;
+    private final ReservationTool reservationTool;
 
     @Value("${langchain4j.ollama.chat-model.base-url:http://localhost:11434}")
     private String baseUrl;
@@ -106,6 +107,7 @@ public class LangChain4jConfig {
 //                .chatMemory(chatMemory())
                 .chatMemoryProvider(chatMemoryProvider())
                 .contentRetriever(contentRetriever(embeddingStore()))
+                .tools(reservationTool)
                 .build();
     }
 }
